@@ -1,0 +1,69 @@
+<h1>Welcome <?php  echo $userdeatils['user_name'];?></h1>
+<a href="<?php echo $this->url('user_management/default', array('controller' => 'user', 'action' => 'view')); ?>">View Profile</a> |
+<a href="<?php echo $this->url('user_management/default', array('controller' => 'user', 'action' => 'rate-of-exchange'));?>" >Configure Rate of Exchange</a>  <!DOCTYPE html>
+| <a href="<?php echo $this->url('user_management/default', array('controller' => 'user', 'action' => 'logout'));?>" >Logout</a>
+
+
+<table class="table" border="0">
+<?php
+use Zend\Form\Element;
+$form = $this->form;
+$form->prepare();
+
+$form->setAttribute('action', $this->url('user_management/default', array('controller' => 'user', 'action' => 'rate-of-exchange'))); //'contact/process'));
+
+$form->setAttribute('method', 'post');
+echo $this->form()->openTag($form);
+
+?>
+<tr>
+	<th>My Favorite</th>
+	<th>usr_id</th>
+	<th>From Country</th>
+	<th>To Country</th>
+	<th>From Currency</th>
+	<th>To Currency</th>
+	<th>Exchange Rate</th>
+</tr>
+<?php
+	foreach ($rowset as $row) {
+		$ischecked = false;
+		$fav = explode(',',$userdeatils['user_favorite']);
+		//print_r($fav);
+		if(in_array($row->exchange_id,$fav)){
+			$ischecked = true;
+		}
+
+		$elementCheckbox = new Element\Checkbox('my-favorite-'.$row->exchange_id);
+		$elementCheckbox->setUseHiddenElement(true)
+        				->setUncheckedValue('no')
+						   ->setCheckedValue('yes')
+						   ->setChecked($ischecked)
+						   ->setAttributes(array(
+							'class'  => 'form-control',
+						));
+		
+?>
+		<tr>
+			<td><?php echo $this->formCheckbox($elementCheckbox);?></td>
+			<td><?php  echo $row->exchange_id; ?></td>
+			<td><?php  echo $row['from_country']; ?></td>
+			<td><?php  echo $row['to_country']; ?></td>
+			<td><?php  echo $row['from_currency']; ?></td>
+			<td><?php  echo $row['to_currency']; ?></td>
+			<td><?php  echo $row['rate_of_exchange']; ?></td>
+			
+		</tr>
+	
+<?php
+	}	
+?>
+<tr colspan="7">
+	<td>
+	<?php
+	echo $this->formRow($form->get('submit'));
+	echo $this->form()->closeTag();
+	?>
+</td>
+</tr>
+</table>

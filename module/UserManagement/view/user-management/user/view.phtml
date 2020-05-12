@@ -1,0 +1,63 @@
+<h1>Welcome <?php  echo $userdetails['user_name'];?></h1>
+<a href="<?php echo $this->url('user_management/default', array('controller' => 'user', 'action' => 'update')); ?>">Edit Profile</a> |
+<a href="<?php echo $this->url('user_management/default', array('controller' => 'user', 'action' => 'rate-of-exchange'));?>" >Configure Rate of Exchange</a>  <!DOCTYPE html>
+| <a href="<?php echo $this->url('user_management/default', array('controller' => 'user', 'action' => 'logout'));?>" >Logout</a>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+</head>
+<body>
+	
+</body>
+</html>
+<table class="table">
+<tr>
+	<th>User Name</th>
+	<th>Email</th>
+	<th>Phone</th>
+	<th>Gender</th>
+	<th>Document</th>
+</tr>
+
+		<tr>
+			<td><?php  echo $userdetails['user_name']; // The row is an ArrayObject $row->usr_id and $row['usr_id'] with both work?></td>
+			<td><?php  echo $userdetails['user_email']; ?></td>
+			<td><?php  echo $userdetails['user_phone']; ?></td>
+			<td><?php  echo ($userdetails['user_gender']==0)?'Female':'Male'; ?></td>
+			<td><a target="blank" href="<?php echo $this->url('user_management/default', array('controller' => 'user', 'action' => 'viewimage')); ?>">View Image</a></td>
+						
+		</tr>
+		
+</table>
+<table class="table" border="0">
+<tr>
+	<th colspan="5">You favorite rate of exchange</th>
+</tr>
+<tr>
+	<th>From Country</th>
+	<th>To Country</th>
+	<th>From Currency</th>
+	<th>To Currency</th>
+	<th>Exchange Rate</th>
+</tr>
+<?php
+	foreach ($userfavoritedata as $row) {
+	
+?>
+		<tr>
+			<td><?php  echo $row['from_country']; ?></td>
+			<td><?php  echo $row['to_country']; ?></td>
+			<td><?php  echo $row['from_currency']; ?></td>
+			<td><?php  echo $row['to_currency']; ?></td>
+			<td><?php  echo $row['rate_of_exchange']; ?></td>
+			
+		</tr>
+	
+<?php
+	}	
+?>
+
+</table>

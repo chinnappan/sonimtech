@@ -1,0 +1,24 @@
+<?php
+echo '<h1>Create</h1>';
+$form = $this->form;
+$form->prepare();
+// Assuming the "contact/process" route exists...
+$form->setAttribute('action', $this->url('user_management/default', array('controller' => 'user', 'action' => 'create'))); //'contact/process'));
+// Set the method attribute for the form
+$form->setAttribute('method', 'post');
+echo $this->form()->openTag($form);
+echo $this->formRow($form->get('user_name'));
+echo "<br> ";
+echo $this->formRow($form->get('user_email'));
+echo "<br> ";
+echo $this->formRow($form->get('user_gender'));
+echo "<br> ";
+echo $this->formRow($form->get('user_phone'));
+echo "<br> ";
+echo $this->formRow($form->get('user_picture'));
+echo "<br> ";
+echo $this->formRow($form->get('submit'));
+//print_r($product);
+//echo $this->form()->openTag($form);
+//echo $this->formCollection($form);
+echo $this->form()->closeTag();
